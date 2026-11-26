@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+         button{
+            width: 100px;
+            height: 40px;
+            color: azure;
+            background-color: black;
+        }
+       
+        #searchInput{
+            width: 200px;
+            height: 50px;
+            background-color: black;
+            color: antiquewhite;
+        }
+        #container{
+            display: grid;
+            grid-template-columns:1fr 1fr 1fr;
+            width: 800px;
+            height: auto;
+            background-color: bisque;
+        }
+        img {
+            max-width: 200px;
+            max-width:200px;
+            margin: 30px;
+            row-gap: 20px;
+            column-gap: 30px;
+        }
+    
+        
+    </style>
+</head>
+<body>
+    <input type="text" placeholder="Enter keywords to search" id="searchInput">
+    <button onclick="searchImages()">search</button>
+    <div id="container"> </div>
+   
+    <script>
+     let accessKey ="WgbWNHEzmwcs29NlBmP57073FSsZwNYppiE2R1cUr8U"
+
+     async function searchImages() {
+        let container = document.getElementById("container")
+        container.innerHTML =""
+        let searchImages = document.getElementById("searchInput")
+        let query = searchInput.value
+        let res = await fetch(`https://api.unsplash.com/search/photos?query=${query}&client_id=${accessKey}&per_page=30`)        
+        let data = await res.json()
+        console.log(data)
+     
+        data.results.map((item) => {
+        const img = document.createElement("img");
+        img.src = item.urls.small;
+        container.appendChild(img);
+      });
+      }
+      
+    </script>
+</body>
+</html>
