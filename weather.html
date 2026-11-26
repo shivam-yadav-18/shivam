@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>weather Dashboard</h1><br><br>
+    <input type="text" placeholder="check weather now" id="searchInput">
+    <button onclick="searchweather()">Get weather</button>
+    <div id="container"> </div>
+
+
+     <script>
+        let apiKey ="d150b869cc962d940b9933ee54119761"
+        async function searchweather() {
+        let container = document.getElementById("container");
+        container.innerHTML =""
+        let searchInput = document.getElementById("searchInput")
+        let city = searchInput.value
+        let res = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`)
+        const data = await res.json()
+        console.log(data)
+
+        let h1 = document.createElement("h1")
+        h1.innerText = data.name
+        container.appendChild(h1)
+
+
+        let h2 = document.createElement("h2")
+        h2.innerHTML = `Temp: ${data.main.temp} <br>
+        feels_like: ${data.main.feels_like}
+        `
+        container.appendChild(h2)
+
+        let p = document.createElement("p")
+        p.innerText = `Humidity: ${data.main.humidity}% 
+         <br>
+         Wind: ${data.wind.speed}`
+        container.appendChild(p)
+       
+    }
+    </script>
+
+</script>
+</body>
+</html>
